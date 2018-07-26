@@ -5,16 +5,22 @@
      <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
    </head>
    <body>
-     <div id="tester"></div>
+     <div id="chart"></div>
      <label>
        Principal
        <input id="principal" type="text"/>
      </label><br>
      <input type="radio" name="risk" value="high_risk"> High<br>
-     <input type="radio" name="risk" value="medium_risk"> Medium<br>
+     <input checked type="radio" name="risk" value="medium_risk"> Medium<br>
      <input type="radio" name="risk" value="low_risk"> Low<br>
+     <input id="submit" type="submit" value="Submit"/><br>
 
-     <input id="submit" type="submit" value="Submit"/>
+     <input style="width: 540px;" id="slider" type="range" min="60" max="240" step="1"/>
+     <p>Term: <span id="term"></span></p>
+     <p>Expected Savings: <span id="savings"></span></p>
+     <p>Total Interest: <span id="interest"></span></p>
+     <p>Expected Return: <span id="return"></span></p>
+
      <script src="main.js"></script>
    </body>
   </html>
