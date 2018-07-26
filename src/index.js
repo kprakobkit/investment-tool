@@ -7,6 +7,7 @@ const $interest = document.getElementById("interest");
 const $return = document.getElementById("return");
 const $term = document.getElementById("term");
 const $rate = document.getElementById("rate");
+const $payment = document.getElementById("payment");
 
 let chartData;
 
@@ -34,7 +35,7 @@ const format = data => {
   const labelsAndKeys = {
     expected_savings: "Expected Savings",
     total_interest: "Total Interest",
-    total_return: "Expected Return"
+    expected_return: "Expected Return"
   };
   const terms = data.map(({ terms }) => terms);
 
@@ -60,15 +61,17 @@ populateLoanProfile = selectedTerm => {
   const {
     total_interest,
     expected_savings,
-    total_return,
+    expected_return,
+    pmt,
     rate = Math.random()
   } = chartData.find(({ terms }) => terms === parseInt(selectedTerm));
 
   $term.textContent = `${selectedTerm} months`;
   $savings.textContent = formatMoney(expected_savings);
-  $return.textContent = formatMoney(total_return);
+  $return.textContent = formatMoney(expected_return);
   $interest.textContent = formatMoney(total_interest);
   $rate.textContent = `${rate}%`;
+  $payment.textContent = formatMoney(pmt);
 };
 
 const main = async () => {
