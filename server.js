@@ -5,7 +5,8 @@ const response = fs.readFileSync("./response.json", "utf8");
 const app = express();
 
 app.get("/results", function(req, res) {
-  res.json(response);
+  res.set("Content-type", "application/json");
+  res.send(response);
 });
 
-app.listen(3000, () => console.log("Example app listening on port 3000!"));
+app.listen(8000, () => console.log("Server started"));
