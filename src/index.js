@@ -3,12 +3,12 @@ const $submit = document.getElementById("submit");
 const $principal = document.getElementById("principal");
 
 const getCharts = async (principal, risk) => {
-  const response = await fetch(`/results?amount=${principal}&risk=high_risk`);
+  const response = await fetch(`/results?amount=${principal}&risk=${risk}`);
 
   return await response.json();
 };
 
-const plotChart = data => {
+const initializeChart = data => {
   Plotly.plot($chart, data, {
     margin: { t: 0 },
     xaxis: {
@@ -18,6 +18,10 @@ const plotChart = data => {
       title: "Dollars ($)"
     }
   });
+};
+
+const updateChart = data => {
+  Plotly.update($chart, data);
 };
 
 const format = data => {
@@ -41,10 +45,15 @@ const format = data => {
 
 const main = async () => {
   const handleSubmit = async () => {
-    const data = await getCharts($principal.value);
+    const risk = document.querySelector('input[name="risk"]:checked').value;
+    const data = await getCharts($principal.value, risk);
 
-    plotChart(format(data));
+    updateChart(format(data));
   };
+
+  const data = await getCharts(100000, "medium_risk");
+
+  initializeChart(format(data));
 
   $submit.addEventListener("click", handleSubmit);
 };
