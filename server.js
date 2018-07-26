@@ -4,7 +4,7 @@ const response = fs.readFileSync("./response.json", "utf8");
 
 const app = express();
 
-app.get("/returns", function(req, res) {
+app.get("/results", function(req, res) {
   res.json(response);
 });
 

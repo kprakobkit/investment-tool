@@ -3,7 +3,7 @@ const $submit = document.getElementById("submit");
 const $principal = document.getElementById("principal");
 
 const getCharts = async (principal, risk) => {
-  const response = await fetch(`/returns?principal=${principal}&risk=${risk}`);
+  const response = await fetch(`/results?amount=${principal}&risk="high_risk"`);
 
   return JSON.parse(await response.json());
 };
