@@ -9,6 +9,16 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, "dist"),
     compress: true,
-    port: 9000
+    port: 9000,
+    proxy: {
+      "/": {
+        target: "http://localhost:3000",
+        bypass: function(req, res, proxyOptions) {
+          if (req.path === "/") {
+            return "/index.html";
+          }
+        }
+      }
+    }
   }
 };

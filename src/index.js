@@ -33,6 +33,18 @@ Plotly.plot(
     }
   ],
   {
-    margin: { t: 0 }
+    margin: { t: 0 },
+    xaxis: {
+      title: "Term"
+    },
+    yaxis: {
+      title: "Dollars ($)"
+    }
   }
 );
+
+fetch("/hello")
+  .then(res => res.json())
+  .then(json => {
+    console.log(json);
+  });
