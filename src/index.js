@@ -56,6 +56,21 @@ const formatMoney = number => {
   return `$${numberWithCommas(Number(number).toFixed(0))}`;
 };
 
+populateLoanProfile = selectedTerm => {
+  const {
+    total_interest,
+    expected_savings,
+    total_return,
+    rate = Math.random()
+  } = chartData.find(({ terms }) => terms === parseInt(selectedTerm));
+
+  $term.textContent = `${selectedTerm} months`;
+  $savings.textContent = formatMoney(expected_savings);
+  $return.textContent = formatMoney(total_return);
+  $interest.textContent = formatMoney(total_interest);
+  $rate.textContent = `${rate}%`;
+};
+
 const main = async () => {
   const handleSubmit = async () => {
     const risk = document.querySelector('input[name="risk"]:checked').value;
@@ -66,18 +81,8 @@ const main = async () => {
 
   const handleSlide = () => {
     const selectedTerm = $slider.value;
-    const {
-      total_interest,
-      expected_savings,
-      total_return,
-      rate = 4.01
-    } = chartData.find(({ terms }) => terms === parseInt(selectedTerm));
 
-    $term.textContent = `${selectedTerm} months`;
-    $savings.textContent = formatMoney(expected_savings);
-    $return.textContent = formatMoney(total_return);
-    $interest.textContent = formatMoney(total_interest);
-    $rate.textContent = `${rate}%`;
+    populateLoanProfile(selectedTerm);
   };
 
   $principal.value = 100000;
@@ -90,18 +95,7 @@ const main = async () => {
   $submit.addEventListener("click", handleSubmit);
   $slider.addEventListener("input", handleSlide);
 
-  const {
-    total_interest,
-    expected_savings,
-    total_return,
-    rate = 5.24
-  } = chartData.find(({ terms }) => terms === parseInt(120));
-
-  $term.textContent = `120 months`;
-  $savings.textContent = formatMoney(expected_savings);
-  $return.textContent = formatMoney(total_return);
-  $interest.textContent = formatMoney(total_interest);
-  $rate.textContent = `${rate}%`;
+  populateLoanProfile(120);
 };
 
 main();
