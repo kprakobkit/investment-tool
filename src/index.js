@@ -22,7 +22,7 @@ const plotChart = data => {
   Plotly.newPlot($chart, data, {
     margin: { t: 0 },
     xaxis: {
-      title: "Term"
+      title: "Term (months)"
     },
     yaxis: {
       title: "Dollars ($)"
