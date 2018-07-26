@@ -58,7 +58,6 @@ const main = async () => {
     const $interest = document.getElementById("interest");
     const $return = document.getElementById("return");
     const $term = document.getElementById("term");
-    console.log("here");
 
     const selectedTerm = $slider.value;
     const { total_interest, expected_savings, total_return } = chartData.find(
