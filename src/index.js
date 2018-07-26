@@ -1,38 +1,15 @@
-import file from "./response";
+const $chart = document.getElementById("tester");
+const $submit = document.getElementById("submit");
+const $principal = document.getElementById("principal");
 
-const chart = document.getElementById("tester");
+const getCharts = async (principal, risk) => {
+  const response = await fetch(`/returns?principal=${principal}&risk=${risk}`);
 
-const terms = file.map(({ terms }) => terms);
-const expectedSavings = file.map(({ expected_savings }) => expected_savings);
-const totalInterest = file.map(({ total_interest }) => total_interest);
-const totalInvested = file.map(({ total_invested }) => total_invested);
-const totalReturn = file.map(({ total_return }) => total_return);
+  return JSON.parse(await response.json());
+};
 
-Plotly.plot(
-  chart,
-  [
-    {
-      x: terms,
-      y: expectedSavings,
-      name: "Expected Savings"
-    },
-    {
-      x: terms,
-      y: totalInterest,
-      name: "Total Interest"
-    },
-    {
-      x: terms,
-      y: totalInvested,
-      name: "Total Invested"
-    },
-    {
-      x: terms,
-      y: totalReturn,
-      name: "Total Return"
-    }
-  ],
-  {
+const plotChart = data => {
+  Plotly.plot($chart, data, {
     margin: { t: 0 },
     xaxis: {
       title: "Term"
@@ -40,11 +17,37 @@ Plotly.plot(
     yaxis: {
       title: "Dollars ($)"
     }
-  }
-);
-
-fetch("/hello")
-  .then(res => res.json())
-  .then(json => {
-    console.log(json);
   });
+};
+
+const format = data => {
+  const labelsAndKeys = {
+    expected_savings: "Expected Savings",
+    total_interest: "Total Interest",
+    total_return: "Total Return",
+    total_invested: "Total Invested"
+  };
+  const terms = data.map(({ terms }) => terms);
+
+  return Object.keys(labelsAndKeys).reduce(
+    (memo, key) =>
+      memo.concat({
+        x: terms,
+        y: data.map(entry => entry[key]),
+        name: labelsAndKeys[key]
+      }),
+    []
+  );
+};
+
+const main = async () => {
+  const handleSubmit = async () => {
+    const data = await getCharts($principal.value);
+
+    plotChart(format(data));
+  };
+
+  $submit.addEventListener("click", handleSubmit);
+};
+
+main();
