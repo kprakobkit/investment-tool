@@ -24,8 +24,7 @@ const format = data => {
   const labelsAndKeys = {
     expected_savings: "Expected Savings",
     total_interest: "Total Interest",
-    total_return: "Total Return",
-    total_invested: "Total Invested"
+    total_return: "Expected Return"
   };
   const terms = data.map(({ terms }) => terms);
 
