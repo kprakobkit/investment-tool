@@ -6,6 +6,7 @@ const $savings = document.getElementById("savings");
 const $interest = document.getElementById("interest");
 const $return = document.getElementById("return");
 const $term = document.getElementById("term");
+const $rate = document.getElementById("rate");
 
 let chartData;
 
@@ -60,14 +61,18 @@ const main = async () => {
 
   const handleSlide = () => {
     const selectedTerm = $slider.value;
-    const { total_interest, expected_savings, total_return } = chartData.find(
-      ({ terms }) => terms === parseInt(selectedTerm)
-    );
+    const {
+      total_interest,
+      expected_savings,
+      total_return,
+      rate = 4
+    } = chartData.find(({ terms }) => terms === parseInt(selectedTerm));
 
     $term.textContent = `${selectedTerm} months`;
     $savings.textContent = formatMoney(expected_savings);
     $return.textContent = formatMoney(total_return);
     $interest.textContent = formatMoney(total_interest);
+    $rate.textContent = `${rate}%`;
   };
 
   $principal.value = 100000;
@@ -80,14 +85,18 @@ const main = async () => {
   $submit.addEventListener("click", handleSubmit);
   $slider.addEventListener("input", handleSlide);
 
-  const { total_interest, expected_savings, total_return } = chartData.find(
-    ({ terms }) => terms === parseInt(120)
-  );
+  const {
+    total_interest,
+    expected_savings,
+    total_return,
+    rate = 5
+  } = chartData.find(({ terms }) => terms === parseInt(120));
 
   $term.textContent = `120 months`;
   $savings.textContent = formatMoney(expected_savings);
   $return.textContent = formatMoney(total_return);
   $interest.textContent = formatMoney(total_interest);
+  $rate.textContent = `${rate}%`;
 };
 
 main();
