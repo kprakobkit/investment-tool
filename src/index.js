@@ -49,7 +49,12 @@ const format = data => {
   );
 };
 
-const formatMoney = number => `$${Number(number).toFixed(2)}`;
+const formatMoney = number => {
+  const numberWithCommas = x =>
+    x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  return `$${numberWithCommas(Number(number).toFixed(0))}`;
+};
 
 const main = async () => {
   const handleSubmit = async () => {
@@ -65,7 +70,7 @@ const main = async () => {
       total_interest,
       expected_savings,
       total_return,
-      rate = 4
+      rate = 4.01
     } = chartData.find(({ terms }) => terms === parseInt(selectedTerm));
 
     $term.textContent = `${selectedTerm} months`;
@@ -89,7 +94,7 @@ const main = async () => {
     total_interest,
     expected_savings,
     total_return,
-    rate = 5
+    rate = 5.24
   } = chartData.find(({ terms }) => terms === parseInt(120));
 
   $term.textContent = `120 months`;
