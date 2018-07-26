@@ -1,25 +1,92 @@
   <!doctype html>
   <html>
    <head>
-     <title>Getting Started</title>
+     <title>EarnSmart</title>
+     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
      <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
    </head>
-   <body>
-     <div id="chart"></div>
-     <label>
-       Principal
-       <input id="principal" type="text"/>
-     </label><br>
-     <input type="radio" name="risk" value="high_risk"> High<br>
-     <input checked type="radio" name="risk" value="medium_risk"> Medium<br>
-     <input type="radio" name="risk" value="low_risk"> Low<br>
-     <input id="submit" type="submit" value="Submit"/><br>
+   <style>
+     body {
+       font-family: 'Roboto', sans-serif;
+     }
 
-     <input style="width: 540px;" id="slider" type="range" min="60" max="240" step="1"/>
-     <p>Term: <span id="term"></span></p>
-     <p>Expected Savings: <span id="savings"></span></p>
-     <p>Total Interest: <span id="interest"></span></p>
-     <p>Expected Return: <span id="return"></span></p>
+     .content-wrapper {
+       margin: 0 auto;
+       width: 900px;
+       display: flex;
+     }
+
+     .form-wrapper {
+       display: flex;
+       align-items: center;
+     }
+
+     .projections-wrapper {
+       display: flex;
+       justify-content: center;
+     }
+
+     .loan-profile {
+       display: flex;
+       justify-content: space-around;
+     }
+
+     .parameter {
+       padding: 5px;
+       margin: 5px;
+       display: flex;
+       flex-direction: column;
+       height: 65px;
+       width: 120px;
+       color: white;
+       background-color: rgb(94, 203, 181)
+     }
+
+     .parameter-header {
+       font-size: 0.75rem;
+     }
+
+     .parameter-value {
+       font-weight: 800;
+       font-size: 1.125rem;
+       margin-bottom: 5px;
+     }
+
+     .header {
+       text-align: center;
+     }
+   </style>
+   <body>
+     <h1 class="header">EarnSmart</h1>
+     <div class="content-wrapper">
+       <div class="form-wrapper">
+         <div class="form">
+           <label>
+             Principal
+             <input id="principal" type="text"/>
+           </label><br>
+           <input type="radio" name="risk" value="high_risk"> High<br>
+           <input checked type="radio" name="risk" value="medium_risk"> Medium<br>
+           <input type="radio" name="risk" value="low_risk"> Low<br>
+           <input id="submit" type="submit" value="Submit"/><br>
+         </div>
+       </div>
+       <div>
+         <div id="chart"></div>
+         <div class="projections-wrapper">
+           <div class="projections">
+             <input style="width: 540px;" id="slider" type="range" min="60" max="240" step="1"/>
+             <div class="loan-profile">
+               <div class="parameter"><div class="parameter-value" id="term"></div><span class="parameter-header">Term <span></div>
+               <div class="parameter"><div class="parameter-value" id="savings"></div><span class="parameter-header">Expected Savings</span></div>
+               <div class="parameter"><div class="parameter-value" id="interest"></div><span class="parameter-header">Total Interest</span></div>
+               <div class="parameter"><div class="parameter-value" id="return"></div><span class="parameter-header">Expected Return</span></div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+
 
      <script src="main.js"></script>
    </body>
